@@ -13,11 +13,23 @@ Bosque dibujado con OpenGL donde cada árbol nace de una "receta" de letras (L-S
 
 ## Quién hace qué
 
-| Pareja | Parte | Integrante A | Integrante B |
-|---|---|---|---|
-| 1 | Motor L-System (solo texto) | `Motor_Cadenas.h` – _nombre_ | `Motor_Reglas.h` – _nombre_ |
-| 2 | Geometría y follaje | `Geometria_Tortuga.h` – _nombre_ | `Follaje.h` – _nombre_ |
-| 3 | Escena y renderizado | `Escena_Bosque.h` – _nombre_ | `Escena_Fondo.h` y `main.cpp` – _nombre_ |
+### Pareja 1: Motor L-System (solo texto)
+* **Integrante A:** _nombre_ 
+  * *Archivo asignado:* ``Motor_Cadenas.h``
+* **Integrante B:** _nombre_ 
+  * *Archivo asignado:* ``Motor_Reglas.h``
+
+### Pareja 2: Geometría y follaje
+* **Integrante A:** ``Gary Añanga``
+  * *Archivo asignado:* ``Geometria_Tortuga.h``
+* **Integrante B:** ``Jadhe Sotelo``
+  * *Archivo asignado:* ``Follaje.h``
+
+### Pareja 3: Escena y renderizado
+* **Integrante A:** _nombre_ 
+  * *Archivo asignado:* ``Escena_Bosque.h``
+* **Integrante B:** _nombre_ 
+  * *Archivos asignados:* ``Escena_Fondo.h`` y ``main.cpp``
 
 ## Regla de oro
 
