@@ -1,0 +1,14 @@
+﻿.vs/
+x64/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.pdb
+*.obj
+*.ilk
+
+!Dependencias/
+!Dependencias/**
+!Dependencias/**/
+!Dependencias/**/*
