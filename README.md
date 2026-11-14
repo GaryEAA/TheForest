@@ -16,7 +16,7 @@ Bosque dibujado con OpenGL donde cada árbol nace de una "receta" de letras (L-S
 ### Pareja 1: Motor L-System (solo texto)
 * **Integrante A:** _nombre_ 
   * *Archivo asignado:* ``Motor_Cadenas.h``
-* **Integrante B:** _nombre_ 
+* **Integrante B:** ``Alejandra Galvez``
   * *Archivo asignado:* ``Motor_Reglas.h``
 
 ### Pareja 2: Geometría y follaje
@@ -26,7 +26,7 @@ Bosque dibujado con OpenGL donde cada árbol nace de una "receta" de letras (L-S
   * *Archivo asignado:* ``Follaje.h``
 
 ### Pareja 3: Escena y renderizado
-* **Integrante A:** _nombre_ 
+* **Integrante A:** ``Jhon Velasquez`` 
   * *Archivo asignado:* ``Escena_Bosque.h``
 * **Integrante B:** _nombre_ 
   * *Archivos asignados:* ``Escena_Fondo.h`` y ``main.cpp``
