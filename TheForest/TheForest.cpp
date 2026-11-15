@@ -30,7 +30,9 @@ void cargarBosque();
 
 inline float calcularViento(float tiempo)
 {
-    return 0.0f;
+    float brisaBase = std::sin(tiempo * 2.2f) * 0.025f;
+    float rafaga = std::sin(tiempo * 5.1f + 1.3f) * 0.008f;
+    return brisaBase + rafaga;
 }
 
 int main()
@@ -110,4 +112,33 @@ void userInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
+
+    float velocidad = 1.2f * deltaTime;
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        posX += velocidad;
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        posX -= velocidad;
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        posY -= velocidad;
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        posY += velocidad;
+
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_KP_ADD) == GLFW_PRESS)
+        zoom = limitar(zoom + 1.0f * deltaTime, 0.5f, 3.0f);
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_KP_SUBTRACT) == GLFW_PRESS)
+        zoom = limitar(zoom - 1.0f * deltaTime, 0.5f, 3.0f);
+
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+    {
+        if (teclaRSuelta)
+        {
+            semillaBosque++;
+            cargarBosque();
+            teclaRSuelta = false;
+        }
+    }
+    else
+    {
+        teclaRSuelta = true;
+    }
 }
