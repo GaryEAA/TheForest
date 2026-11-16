@@ -9,7 +9,7 @@ inline float pesoFollaje(float y, float baseY, float altura)
     return limitar((y - baseY) / alto, 0.0f, 1.0f);
 }
 
-// DIBUJAR UNA HOJA PUNTIAGUDA O TIPO AGUJA
+// HOJA PUNTIAGUDA O TIPO AGUJA
 
 inline void dibujarHojaPoligonal(
     Malla& m,
@@ -72,7 +72,7 @@ inline void dibujarHojaPoligonal(
     );
 }
 
-// 1. DIBUJAR HOJAS DE LOS ARBOLES
+// HOJAS DE LOS ARBOLES
 
 inline void dibujarHojas(
     const Esqueleto& esq,
@@ -99,16 +99,32 @@ inline void dibujarHojas(
         altura * 0.025f
     ) * 0.75f;
 
-    // Distancia maxima de distribucion alrededor de cada punta.
     float dispersion = radio * (1.0f + densidad * 0.6f);
+    float alturaSegura = std::max(altura, 0.001f);
+
+    const float ALTURA_SIN_HOJAS = 0.20f;
+    const float ZONA_TRANSICION = 0.10f;
 
     // Recorrer todas las puntas del arbol.
     for (const PuntaHoja& punta : esq.puntas)
     {
+        float fraccion = punta.y / alturaSegura;
+
+        // Sin hojas en la parte baja.
+        if (fraccion < ALTURA_SIN_HOJAS)
+            continue;
+
+        // Transicion suave: mas probabilidad de hojas mientras mas arriba.
+        if (fraccion < ALTURA_SIN_HOJAS + ZONA_TRANSICION)
+        {
+            float prob = (fraccion - ALTURA_SIN_HOJAS) / ZONA_TRANSICION;
+            if (az.unidad() > prob)
+                continue;
+        }
+
         float centroX = baseX + punta.x;
         float centroY = baseY + punta.y;
 
-        // Variacion del color segun la especie.
         Color colorBase = mezclar(
             estilo.hojaA,
             estilo.hojaB,
