@@ -2,10 +2,6 @@
 #pragma once
 #include "Contratos.h"
 
-// ============================================================
-// FUNCIONES AUXILIARES DEL FOLLAJE
-// ============================================================
-
 // Calcula el peso de un vertice para el movimiento del viento.
 inline float pesoFollaje(float y, float baseY, float altura)
 {
@@ -13,10 +9,7 @@ inline float pesoFollaje(float y, float baseY, float altura)
     return limitar((y - baseY) / alto, 0.0f, 1.0f);
 }
 
-
-// ============================================================
 // DIBUJAR UNA HOJA PUNTIAGUDA O TIPO AGUJA
-// ============================================================
 
 inline void dibujarHojaPoligonal(
     Malla& m,
@@ -79,10 +72,7 @@ inline void dibujarHojaPoligonal(
     );
 }
 
-
-// ============================================================
 // 1. DIBUJAR HOJAS DE LOS ARBOLES
-// ============================================================
 
 inline void dibujarHojas(
     const Esqueleto& esq,
@@ -107,10 +97,10 @@ inline void dibujarHojas(
     float radio = std::max(
         estilo.radioHoja,
         altura * 0.025f
-    );
+    ) * 0.75f;
 
     // Distancia maxima de distribucion alrededor de cada punta.
-    float dispersion = radio * (1.0f + densidad * 1.4f);
+    float dispersion = radio * (1.0f + densidad * 0.6f);
 
     // Recorrer todas las puntas del arbol.
     for (const PuntaHoja& punta : esq.puntas)
@@ -125,9 +115,7 @@ inline void dibujarHojas(
             0.5f
         );
 
-        // ----------------------------------------------------
         // HOJAS REDONDAS
-        // ----------------------------------------------------
 
         if (estilo.tipoHoja == TipoHoja::Redonda)
         {
@@ -136,8 +124,8 @@ inline void dibujarHojas(
                 m,
                 centroX,
                 centroY,
-                radio * 0.85f,
-                radio * 0.75f,
+                radio * 0.65f,
+                radio * 0.55f,
                 variar(colorBase, az, 0.045f),
                 12,
                 baseY,
@@ -145,7 +133,7 @@ inline void dibujarHojas(
             );
 
             // Cantidad de hojas alrededor de la punta.
-            int cantidad = 5 + (int)(densidad * 7.0f);
+            int cantidad = 2 + (int)(densidad * 2.0f);
 
             for (int i = 0; i < cantidad; i++)
             {
@@ -157,7 +145,7 @@ inline void dibujarHojas(
                 );
 
                 float x = centroX + std::cos(angulo) * distancia;
-                float y = centroY + std::sin(angulo) * distancia;
+                float y = centroY + std::abs(std::sin(angulo)) * distancia;
 
                 float rx = radio * az.rango(0.45f, 0.85f);
                 float ry = rx * az.rango(0.75f, 1.15f);
@@ -184,9 +172,7 @@ inline void dibujarHojas(
             }
         }
 
-        // ----------------------------------------------------
         // HOJAS PUNTIAGUDAS
-        // ----------------------------------------------------
 
         else if (estilo.tipoHoja == TipoHoja::Puntiaguda)
         {
@@ -203,7 +189,7 @@ inline void dibujarHojas(
                 altura
             );
 
-            int cantidad = 6 + (int)(densidad * 7.0f);
+            int cantidad = 2 + (int)(densidad * 2.0f);
 
             for (int i = 0; i < cantidad; i++)
             {
@@ -245,13 +231,11 @@ inline void dibujarHojas(
             }
         }
 
-        // ----------------------------------------------------
         // HOJAS TIPO AGUJA
-        // ----------------------------------------------------
 
         else if (estilo.tipoHoja == TipoHoja::Aguja)
         {
-            int cantidad = 9 + (int)(densidad * 9.0f);
+            int cantidad = 3 + (int)(densidad * 2.0f);
 
             for (int i = 0; i < cantidad; i++)
             {
@@ -295,10 +279,7 @@ inline void dibujarHojas(
     }
 }
 
-
-// ============================================================
 // 2. DIBUJAR ARBUSTOS
-// ============================================================
 
 inline void dibujarArbustos(
     float x,
@@ -308,7 +289,7 @@ inline void dibujarArbustos(
     Malla& m)
 {
     // Altura del terreno.
-    float suelo = std::max(y, HORIZONTE);
+    float suelo = y;
 
     // Tamano proporcional al arbol.
     float radioBase = limitar(
